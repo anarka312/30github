@@ -2,7 +2,6 @@ import { Container, Title } from "@/components/shared";
 import { TopBar } from "@/components/shared/top-bar";
 import { Filters } from "@/components/shared/filters";
 
-
 export default function Home() {
   return (
     <>
@@ -11,7 +10,7 @@ export default function Home() {
       </Container>
 
       <TopBar />
-      <div style={{ height: "3000px" }} />
+      {/* <div style={{ height: "3000px" }} /> */}
 
       <Container className="mt-10 pb-14">
         <div className="flex gap-[60px]">
