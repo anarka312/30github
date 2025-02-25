@@ -7,6 +7,7 @@ import { Search } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { useClickAway, useDebounce } from 'react-use';
+import { Api } from '@/services/api-client';
 
 interface Props {
   className?: string;
@@ -20,7 +21,11 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 
   useClickAway(ref, () => {
     setFocused(false);
-  });
+  }, [searchQuery]);
+
+  React.useEffect(() => {
+    Api.products.search
+  })
 
   // useDebounce(
   //   async () => {
