@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import { Title } from "./title";
@@ -12,10 +12,22 @@ interface Props {
   className?: string;
 }
 
-export const Filters: React.FC<Props> = ({ className }) => {
-  const {ingredients, loading} = useIngredients()
+interface PriceProps {
+  priceFrom: number;
+  priceTo: number;
+}
 
-  const items = ingredients.map((item) => ({value: String(item.id), text: item.name}))
+export const Filters: React.FC<Props> = ({ className }) => {
+  const { ingredients, loading, onAddId, selectedIds } = useIngredients();
+  const [ {priceFrom, priceTo}, setPrice ] = React.useState<PriceProps>({
+    priceFrom: 0,
+    priceTo: 5000,
+  });
+
+  const items = ingredients.map((item) => ({
+    value: String(item.id),
+    text: item.name,
+  }));
   return (
     <div className={className}>
       <Title text="Фильтрация" size="sm" className="mb-5 font-bold" />
@@ -31,27 +43,23 @@ export const Filters: React.FC<Props> = ({ className }) => {
             placeholder="0"
             min={0}
             max={1000}
-            defaultValue={0}
+            value={String(priceFrom)}
           />
-          <Input
-            type="number"
-            placeholder="1000"
-            min={100}
-            max={30000}
-            
-          />
+          <Input type="number" placeholder="1000" min={100} max={30000} />
         </div>
-        <RangeSlider min={0} max={5000} step={10} value={[0, 5000]}/>
+        <RangeSlider min={0} max={5000} step={10} value={[0, 5000]} />
       </div>
-      <CheckboxFiltersGroup 
-      title = "Ингриеденты"
-      name = "ingredients"
-      className="mt-5"
-      limit={6}
-      defaultItems={items.slice(0.6)}
-      items={items}
-      loading={loading}
-      onClickCheckbox={id=>console.log(id)}/>
+      <CheckboxFiltersGroup
+        title="Ингриеденты"
+        name="ingredients"
+        className="mt-5"
+        limit={6}
+        defaultItems={items.slice(0.6)}
+        items={items}
+        loading={loading}
+        onClickCheckbox={onAddId}
+        selectedIds={selectedIds}
+      />
     </div>
   );
 };
