@@ -35,6 +35,7 @@ export const useIngredients = () => {
   return {
     ingredients,
     loading,
-    onAddId: toggle, selectedIds
+    onAddId: toggle, 
+    selectedIngredients: selectedIds
   };
 };
