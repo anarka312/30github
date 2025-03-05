@@ -32,10 +32,22 @@ export const useIngredients = () => {
     fetchIngredients();
   }, []);
 
+  const setSelectedIngredients = (ids: string[]) => {
+    ids.forEach((id) => {
+      if(selectedIds.has(id)) {
+        selectedIds.delete(id)
+      }else{
+        selectedIds.add(id)
+      }
+    })
+
+  }
+
   return {
     ingredients,
     loading,
     onAddId: toggle, 
-    selectedIngredients: selectedIds
+    selectedIngredients: selectedIds,
+    setSelectedIngredients,
   };
 };
